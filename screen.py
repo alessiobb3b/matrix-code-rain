@@ -23,7 +23,7 @@ from math import floor
 from os import get_terminal_size
 from io import StringIO
 from time import time, sleep
-
+Chars = '0123456789｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ'
 class Screen:
 	"""the class that handle display and drop management"""
 	def __init__(self,
@@ -46,7 +46,7 @@ class Screen:
 		self.randomString = '' # to minimize the number of calls to a random function (which are quite time consuming), we choose to iterate over a single randomized string when composing the frame
 		self.rsl = 1000 # the length of the string
 		self.rsc = 0 # the index counter of the string
-		myPrintable = string.ascii_letters + string.digits + string.punctuation
+		myPrintable = Chars
 		for i in range(self.rsl):
 			self.randomString += choice(myPrintable)
 		self.pixels = [] # nested arrays of booleans representing if a pixel is blank or not
@@ -63,7 +63,7 @@ class Screen:
 				if self.pixels[j][i]:
 					if self.rsc == self.rsl:
 						self.rsc = 0
-					output.write(self.randomString[self.rsc])
+					output.write("\033[1;32m" + self.randomString[self.rsc] + "\033[1;m")
 					self.rsc += 1
 				else:
 					output.write(' ')
